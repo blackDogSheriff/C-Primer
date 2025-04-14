@@ -37,7 +37,7 @@ class Accout
     */
     string owner;
     double amount;
-    static double interestRate;
+    static double interestRate; //静态成员只声明，在类外定义；
     static double initRate(); // 私有成员函数
 
     //通常情况下类静态成员不应该在类的内部进行初始化，但是可以提供const整数类型的类内初始值，前提是静态成员变量必须是字面值常量类型的constexpr
@@ -60,7 +60,8 @@ double Accout::initRate()
 
 //静态数据成员定义在任何函数之外，一旦定义就一直存在于程序的整个生命周期中
 double Accout::interestRate = initRate(); //虽然initRate是私有的，也可以用来初始化interestRate
-static constexpr int period;              //不需要再指定另一个初始值
+//常量静态成员在类内进行初始化了，通常情况下在类的外部也要重新定义一下该成员
+constexpr int Accout::period;              //不需要再指定另一个初始值
 
 int main(void)
 {
@@ -86,4 +87,10 @@ int main(void)
 - 静态成员可以是不完全类型
 - 静态成员的类型可以是它所属的类类型，非静态成员只能声明成它所属的类的指针或者引用
 - 可以使用静态成员作为实参，非静态的成员不能作为实参，因为它的值本身属于对象的一部分，这么做的结果是无法真正提供一个对象
+*/
+
+/*
+- 静态成员不能是const原因：
+    - const必须在定义时初始化，静态成员不允许直接初始化 
+    - 静态成员必须在类外单独定义（需要分配存储空间）
 */

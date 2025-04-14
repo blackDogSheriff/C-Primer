@@ -12,10 +12,15 @@ struct Sales_data
     friend Sales_data add(const Sales_data &lhs, const Sales_data &rhs);
 
   public:
-    Sales_data() = default;
     Sales_data(const string &s, unsigned n, double p) : bookNo(s), units_sold(n), revenue(p){}; //显示初始化列表
-    Sales_data(const string &s) : bookNo(s){}; //剩下两个没有显示初始化的参数按照默认构造函数的规则进行隐式初始化
-    Sales_data(istream &is);
+
+    //委托构造函数：
+    Sales_data() : Sales_data("", 0, 0.0){};
+    Sales_data(string s) : Sales_data(s, 0, 0){};
+    Sales_data(istream &is) : Sales_data() //先委托给三参数默认构造函数，然后执行函数体内部内容
+    {
+        read(is, *this);
+    };
 
     /*
      * - this指针是一个常量指针，不能修改this指针的指向；
@@ -41,11 +46,6 @@ struct Sales_data
 Sales_data add(const Sales_data &, const Sales_data &);
 ostream &print(ostream &, Sales_data &);
 istream &read(istream &, Sales_data &);
-
-Sales_data::Sales_data(istream &is)
-{
-    read(is, *this);
-}
 
 /*
  * - 函数内声明，函数外定义，声明和定义一定要相匹配
@@ -85,4 +85,7 @@ Sales_data add(const Sales_data &lhs, const Sales_data &rhs)
     Sales_data sum = lhs;
     sum.combine(rhs);
     return sum;
+}
+int main(void)
+{
 }

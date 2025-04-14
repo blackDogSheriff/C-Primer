@@ -1,0 +1,10 @@
+{
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.clang_format_fallbackStyle": "Microsoft",
+    "C_Cpp.clang_format_style": "Microsoft",
+    "files.associations": {
+        "iostream": "cpp",
+        "iosfwd": "cpp"
+    }
+}
