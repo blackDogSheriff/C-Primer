@@ -5,6 +5,28 @@
     "C_Cpp.clang_format_style": "Microsoft",
     "files.associations": {
         "iostream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "memory": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "list": "cpp",
+        "new": "cpp",
+        "initializer_list": "cpp",
+        "stdexcept": "cpp",
+        "ostream": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "unordered_map": "cpp",
+        "iterator": "cpp",
+        "string_view": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "numeric": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "atomic": "cpp",
+        "memory_resource": "cpp",
+        "optional": "cpp"
     }
 }

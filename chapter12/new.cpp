@@ -1,16 +1,17 @@
 #include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
-int
-main(void)
+int main(void)
 {
     // 分配一个无名内存，返回指向该对象的指针
-    int *pi = new int; // 默认情况下，值默认初始化，也就是为定义的
+    int *pi = new int;   // 默认情况下，值默认初始化，也就是为定义的
     int *pi = new int(); // 值初始化为空
     int *pi = new int(1024);
 
-    string     *ps = new string;  // 默认初始化为空string
-    string     *ps = new string() // 值初始化为空string
-        string *ps = new string(10, '9');
+    string *ps = new string;   // 默认初始化为空string
+    string *ps = new string(); // 值初始化为空string
+    string *ps = new string(10, '9');
 
     vector<int> *pv = new vector<int>{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
@@ -28,7 +29,7 @@ main(void)
 
     // 释放动态内存
     delete p; // p必须指向一个动态分配的对象或者是一个空指针
-    int     i, *pil = &i, *pi2 = nullptr;
+    int i, *pil = &i, *pi2 = nullptr;
     double *pd = new double(33), *pd2 = pd;
     delete i;   // 错误：i不是一个指针
     delete pil; // 为定义： pil指向一个局部变量
