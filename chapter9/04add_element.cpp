@@ -5,6 +5,7 @@ using namespace std;
 /*
     forward_list有自己专门的版本的insert和emplace；
     forward_list不支持push_back和emplace_back
+    vector和string不支持
 
     c.push_back(t);
     c.emplace_back(args);
@@ -21,38 +22,62 @@ using namespace std;
 */
 int main(void)
 {
-    // 所有的顺序容器都支持push_back
     string word;
-    list<string> container;
     while (cin >> word)
-        container.push_back(word);
-
-    // list,forward_list,deque支持push_front
-    list<int> ilist;
-    for (size_t ix = 0; ix != 4; ++ix)
-        ilist.push_front(ix);
-
-    // vector,deque, list, string支持insert
-    // 可以在任意位置插入
-    list<string> slist;
-    auto iter = slist.cbegin();
-    slist.insert(iter, "Hello!");
-    slist.insert(slist.begin(), "Hello");
-
-    vector<string> svec;
-    svec.insert(svec.end(), 10, "Anna");
-    slist.insert(slist.end(), {"these", "words", "will", "go", "at", "the", "end"});
-
-    // insert返回指向第一个新加入元素的迭代器
-    list<string> lst;
-    auto it = lst.begin();
-    while (cin >> word)
-        it = lst.insert(it, word); // 等价调用push_front，insert返回指向第一个新加入的元素的迭代器
-
-    list<int> il = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-    cout << *(il.end()--) << endl;
-
+    {
+    }
     return 0;
+}
+
+void t_push_back()
+{
+}
+
+void t_push_front()
+{
+    // deque可以随机访问，也可以push_front
+    list<int> il;
+    for (size_t ix = 0; ix != 4; ++ix)
+    {
+        il.push_front(ix);
+    }
+}
+
+void t_insert()
+{
+    vector<string> sv;
+    list<string> sl;
+    sl.insert(sl.begin(), "hello");
+    sv.insert(sv.begin(), "hello"); // vector中间调用insert耗时高
+    sv.insert(sv.end(), 10, "hello");
+
+    vector<string> sv2;
+    sl.insert(sl.begin(), sv2.begin(), sv2.end());
+    sl.insert(sl.end(), {"hello", "world"});
+
+    // sl.insert(sl.begin(), sl.begin(), sl.end()); //运行时错误，不能指向与目的位置相同的容器
+
+    /*
+    - 接收元素个数或者范围的insert返回第一个新加入的元素的迭代器
+    - 通过使用insert返回值，可以在容器中一个特定位置反复插入元素
+    */
+
+    list<string> sl2;
+    auto it = sl2.begin();
+    string word;
+    while (cin >> word)
+    {
+        it = sl2.insert(it, word);
+    }
+}
+
+void t_emplace()
+{
+    list<string> sv;
+    sv.emplace_back("hello"); //使用“hello”构造了一个对象并放到sv尾部
+    sv.emplace_back();        //默认构造函数
+    sv.emplace_front("hello");
+    sv.emplace(sv.begin(), "word");
 }
 
 /*

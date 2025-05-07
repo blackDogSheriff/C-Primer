@@ -17,9 +17,11 @@ class Sales_data
     friend istream &read(istream &is, Sales_data &item);
 
   public:
-    Sales_data() = default;
-    Sales_data(istream &is);
-    Sales_data(const string &s) : bookNo(s){}; //剩余俩参数使用类内初始值
+    Sales_data() : Sales_data("", 0, 0){};
+    // explicit只对一个参数的构造函数有效
+    // explicit构造函数只能用于直接初始化，不用用于拷贝初始化
+    explicit Sales_data(istream &is);                    //添加explict关键字，防止通过构造函数隐式转换
+    Sales_data(const string &s) : Sales_data(s, 0, 0){}; //剩余俩参数使用类内初始值
     Sales_data(const string &s, unsigned n, double p) : bookNo(s), units_sold(n), revenue(p * n){}; //值初始化列表
 
     string isbn() const
@@ -36,7 +38,7 @@ class Sales_data
     double revenue = 0.0;    //总收入
 };
 
-Sales_data::Sales_data(istream &is)
+Sales_data::Sales_data(istream &is) : Sales_data()
 {
     read(is, *this);
 }
@@ -83,5 +85,12 @@ ostream &print(ostream &os, const Sales_data &item)
 
 int main(void)
 {
+    Sales_data s1("978-7-121-08300-0", 10, 100);
+    string s2("978-7-121-08300-0");
+    s1.combine(s2);                              //将string转换成Sales_data
+    s1.combine(Sales_data("978-7-121-08300-0")); //首先string隐式转换成string，然后string显示转换成Sales_data
+
+    // explicit构造函数可以通过显示类型转换将cin转成Sales_data
+    s1.combine(Sales_data(static_cast<Sales_data>(cin)));
     return 0;
 }

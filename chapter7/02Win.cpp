@@ -3,6 +3,8 @@
 using namespace std;
 class Screen
 {
+    friend class Window_mgr;
+
   public:
     typedef string::size_type pos;
     Screen() = default;
@@ -83,9 +85,18 @@ inline char Screen::get(pos ht, pos wd) const
 class Window_mgr
 {
   public:
+    using ScreenIndex = vector<Screen>::size_type;
+    void clear(ScreenIndex); //清空指定的Screen
+
   private:
     vector<Screen> screens{Screen(24, 80, ' ')};
 };
+
+void Window_mgr::clear(ScreenIndex i)
+{
+    Screen &s = screens[i];
+    s.contents = string(s.height * s.width, ' ');
+}
 
 int main(void)
 {

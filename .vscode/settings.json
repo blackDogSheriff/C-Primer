@@ -6,6 +6,7 @@
     "files.associations": {
         "iostream": "cpp",
         "iosfwd": "cpp",
+<<<<<<< HEAD
         "memory": "cpp",
         "string": "cpp",
         "vector": "cpp",
@@ -29,4 +30,16 @@
         "memory_resource": "cpp",
         "optional": "cpp"
     }
+=======
+        "*.tcc": "cpp",
+        "forward_list": "cpp",
+        "string": "cpp",
+        "deque": "cpp",
+        "vector": "cpp",
+        "functional": "cpp",
+        "set": "cpp"
+    },
+    "editor.lineHeight": 1.3,
+    "editor.formatOnSave": true
+>>>>>>> 90cf9e5 (refactor(vscode): 更新 VSCode 设置并删除无用代码)
 }

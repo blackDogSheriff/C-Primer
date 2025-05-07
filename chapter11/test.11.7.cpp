@@ -5,34 +5,43 @@
 
 using namespace std;
 
-//创建家族-姓
-#if 0
-void add_family(map<string, vector<string>> &families, 
-			const string &family)
+void add_family(map<string, vector<string>> &families, const string &family)
 {
-	if (families.find(family) == families.end())
-		families[family] = vector<string>();
-}
-#endif
-
-void add_child(map<string, vector<string>> &families,
-			const string &family, const string &child)
-{
-	families[family].push_back(child);
+    if (families.find(family) == families.end())
+    {
+        families[family] = vector<string>(); //没有找到则新建
+    }
 }
 
-
-int main(void)
+void add_child(map<string, vector<string>> &families, const string &family, const string &child)
 {
-	map<string, vector<string>> families;
-	add_child(families, "章", "老二");
-	add_child(families, "刘", "老三");
-	add_child(families, "章", "老四");
-	add_child(families, "刘", "老五");
+    families[family].push_back(child);
+}
 
-	for (const auto &f : families) {
-		for (const auto &c : f.second)
-			cout << f.first << c << endl;
-	}
-	return 0;
+void print_families(const map<string, vector<string>> &families)
+{
+    for (auto const &family : families)
+    {
+        for (auto const &child : family.second)
+        {
+            cout << family.first << " " << child << ", ";
+        }
+        cout << endl;
+    }
+}
+
+int main()
+{
+    map<string, vector<string>> families;
+    add_family(families, "Smith");
+    add_child(families, "Smith", "John");
+    add_child(families, "Smith", "Jane");
+
+    add_family(families, "Doe");
+    add_child(families, "Doe", "Alice");
+    add_child(families, "Doe", "Bob");
+
+    print_families(families);
+
+    return 0;
 }

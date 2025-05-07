@@ -19,12 +19,22 @@ using namespace std;
 
 int main(void)
 {
-    list<string> authors = {"Milton", "Shakespeare", "Austen"};
-    vector<const char *> articles = {"a", "an", "the"};
+    list<string> authors = {"Milton", "Shakespeare", "Homer"}; //列表初始化
+    list<string> list2(authors);                               //容器类型元素必须匹配
+    // deque<string> authList(authors); //错误，容器类型不匹配；
+    deque<string> authList(authors.cbegin(), authors.cend());
 
-    list<string> list2(authors);
-    // deque<string> authList(authors); //错误，容器类型不匹配
-    // vector<string> words(authList);
+    vector<const char *> words = {"the", "quick", "red", "fox", "jumps", "over", "the", "slow", "red", "turtle"};
+    deque<string> words2(words2);                              //错误，元素类型不匹配；
+    forward_list<string> words3(words.cbegin(), words.cend()); //可以将类型转换成string
 
-    forward_list<string> words(articles.begin(), articles.end());
+    vector<int> v1(10, -1);
+    for (auto &i : v1)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+    list<string> ls(10, "hi"); 
+    forward_list<int> fl(10); //单向链表，十个0
+    deque<string> dq(10); //双向队列，十个空string
 }
