@@ -1,18 +1,17 @@
 #include <iostream>
 using namespace std;
-int
-main(void)
+int main(void)
 {
     // 可以使用非常量设定动态数组的元素个数，因为动态数组不是数组；
     int *pia = new int[getsize()];
 
     // 使用别名创建动态数组
     typedef int arrT[42];
-    int        *p = new arrT;
+    int *p = new arrT;
 
     // 动态数组的初始化
-    int    *pia = new int[10];      // 默认初始化
-    int    *pia = new int[10]();    // 值初始化为0
+    int *pia = new int[10];         // 默认初始化
+    int *pia = new int[10]();       // 值初始化为0
     string *psa = new string[10];   // 调用string构造函数初始化为空?
     string *psa = new string[10](); // 值初始化为空?
 
@@ -23,7 +22,7 @@ main(void)
 
     // 动态数组的处理
     size_t n = get_size();
-    int   *p = new int[n];
+    int *p = new int[n];
     for (int *q = p; q != p + n; ++q)
         /* 处理数组 */
         /* 如果getsize()返回0，new返回一个合法的非空指针，但是不指向任意元素

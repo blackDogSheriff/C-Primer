@@ -1,11 +1,15 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include "04StrBlobPtr.h"
 
 using namespace std;
+class StrBlobPtr;
 
 class StrBlob
 {
+    friend class StrBlobPtr;
+
   public:
     typedef vector<string>::size_type size_type;
     StrBlob() = default;
@@ -27,9 +31,19 @@ class StrBlob
     void pop_back();
 
     string &front();
-    string &front ()const;
+    string &front() const;
     string &back();
-    string &back ()const;
+    string &back() const;
+    StrBlobPtr begin()
+    {
+        return StrBlobPtr(*this);
+    }
+
+    StrBlobPtr end()
+    {
+        auto ret = StrBlobPtr(*this, data->size());
+        return ret;
+    };
 
   private:
     shared_ptr<vector<string>> data;
