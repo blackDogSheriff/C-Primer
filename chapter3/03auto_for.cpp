@@ -31,7 +31,7 @@ void for_each_string(const string &s)
         c = s[i];
         cout << c << endl;
     }
-    return ;
+    return;
 }
 
 void auto_for(const string &s)

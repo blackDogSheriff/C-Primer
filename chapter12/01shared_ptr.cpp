@@ -35,3 +35,25 @@ void t_shared_ptr_init()
     auto p8 = make_shared<int>(42);
     auto p9 = p8; // 给p9赋值；递增p8的引用计数；递减p9原来的引用计数；如果p9原来的yin引计数为0，则释放内存
 }
+
+void tt()
+{
+    shared_ptr<string> p1;
+    shared_ptr<list<int>> p2;
+
+    if (p1 && p1->empty()) //如果p1指向一个空的string
+    {
+        *p1 = "hi";
+    }
+
+    //动态分配，并创建智能指针指向
+    shared_ptr<int> p3 = make_shared<int>(42);            //直接初始化
+    shared_ptr<string> p4 = make_shared<string>(10, '9'); //值初始化为10个'9'
+    shared_ptr<int> p5 = make_shared<int>();              //默认初始化为0
+
+    shared_ptr<vector<string>> p6 = make_shared<vector<string>>(); //创建一个空的vector<string>
+    auto p7(p3);                                                   // p7指向p3指向的动态内存，p3引用计数+1
+
+    auto p8 = make_shared<int>(42); //动态分配一个int，并初始化为42
+    p8 = p7;                        // p8原来指向的动态内存自动释放，p7指向的动态内存引用计数+1
+}
