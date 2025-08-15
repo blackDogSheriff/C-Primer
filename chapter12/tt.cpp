@@ -1,27 +1,15 @@
 #include <iostream>
-#include "tt.h"
+#include <memory>
 
 using namespace std;
 
 int main(void)
 {
-    StrBlob b1;
-    {
-        StrBlob b2 = {"a", "an", "the"};
-        b1 = b2; // b1的data是一个指针，拷贝了b2的data指针
-        b2.push_back("about");
-        cout << b2.size() << endl;
-    }
-
-    cout << b1.size() << endl;
-    cout << b1.front() << " " << b1.back() << endl;
-
-    const StrBlob b3 = b1;
-
-    for (auto it = b1.begin(); neq(it, b1.end()); it.incr())
-        cout << it.deref() << endl;
-
-    cout << b3.front() << " " << b3.back() << endl;
+    int *ptr = new int(42);
+    shared_ptr<int> p1(ptr, [](int *p) { delete p; });
+    shared_ptr<int> p2(ptr, [](int *p) { delete p; });
+    cout << "p1 use count: " << p1.use_count() << endl; // 输出引用计数
+    cout << "p2 use count: " << p2.use_count() << endl;
 
     return 0;
 }
