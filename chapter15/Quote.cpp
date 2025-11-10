@@ -1,13 +1,10 @@
 #include <iostream>
 using namespace std;
-class Quote {
-public:
+class Quote
+{
+  public:
     Quote() = default;
-    Quote(const string &book, double sales_price)
-        : bookNo(book)
-        , price(sales_price)
-    {
-    }
+    Quote(const string &book, double sales_price) : bookNo(book), price(sales_price){};
     string isbn() const
     {
         return bookNo;
@@ -37,21 +34,19 @@ public:
         return new Quote(move(*this));
     }
 
-private:
+  private:
     string bookNo;
 
-protected:
+  protected:
     double price = 0.0;
 };
 
-class Disc_quote : public Quote {
-public:
+class Disc_quote : public Quote
+{
+  public:
     Disc_quote() = default;
-    Disc_quote(const string &book = " ", double price = 0.0, size_t qty = 0,
-               double disc = 0.0)
-        : Quote(book, price)
-        , quantity(qty)
-        , discount(disc)
+    Disc_quote(const string &book = " ", double price = 0.0, size_t qty = 0, double disc = 0.0)
+        : Quote(book, price), quantity(qty), discount(disc)
     {
     }
     // 不可以在类的内部定义纯虚函数, 含有纯虚函数的类是抽象基类，
@@ -63,83 +58,78 @@ public:
         return {quantity, discount};
     }
 
-protected:
+  protected:
     size_t quantity = 0;
     double discount = 0.0;
 };
 
-class Bulk_Quote : public Disc_quote {
-public:
+class Bulk_Quote : public Disc_quote
+{
+  public:
     Bulk_Quote() = default;
     // 调用基类构造函数初始化基类成员
     Bulk_Quote(const string &book, double p, size_t qty, double disc)
-        : Disc_quote(book, p, qty, disc)
-        , min_qty(qty)
-        , discount(disc)
+        : Disc_quote(book, p, qty, disc), min_qty(qty), discount(disc)
     {
     }
     // 派生类必须在内部对所有重新定义的虚函数进行声明
     // voerride：显示声明使用改写基类虚函数的成员
     // 如果派生类没有继承虚函数，则派生类会直接继承其在基类中的版本
-    double       net_price(size_t) const override;
+    double net_price(size_t) const override;
     virtual void debuf()
     {
         Quote::debug();
         cout << "min_qty = " << min_qty << " discount = " << discount << endl;
     }
 
-private:
-    size_t min_qty  = 0;
+  private:
+    size_t min_qty = 0;
     double discount = 0.0;
 };
 
-class Limited_quote : public Disc_quote {
-public:
-    Limited_quote(const string &book = " ", double p = 0.0, size_t qty = 0,
-                  double disc = 0.0)
-        : Disc_quote(book, p, qty, disc)
-        , min_qty(qty)
-        , discount(disc)
+class Limited_quote : public Disc_quote
+{
+  public:
+    Limited_quote(const string &book = " ", double p = 0.0, size_t qty = 0, double disc = 0.0)
+        : Disc_quote(book, p, qty, disc), min_qty(qty), discount(disc)
     {
     }
     double net_price(size_t) const override;
 
-private:
+  private:
     size_t min_qty;
     double discount;
 };
 
-class Basket {
-public:
+class Basket
+{
+  public:
     void add_item(const shared_ptr<Quote> &sale)
     {
         item.insert(sale);
     }
     double total_receipt(ostream &) const;
 
-private:
-    static bool compare(const shared_ptr<Quote> &lhs,
-                        const shared_ptr<Quote> &rhs)
+  private:
+    static bool compare(const shared_ptr<Quote> &lhs, const shared_ptr<Quote> &rhs)
     {
         return lhs->isbn() < rhs->isbn();
     }
     multiset<shared_ptr<Quote>, decltype(compare) *> items{compare};
 };
 
-double
-Basket::total_receipt(ostream &s) const
+double Basket::total_receipt(ostream &s) const
 {
     double sum = 0.0;
-    for (auto iter = item.cbegin(); iter != item.cend();
-         item      = item.upper_bound(*iter)) {
+    for (auto iter = item.cbegin(); iter != item.cend(); item = item.upper_bound(*iter))
+    {
         sum += print_total(os, **iter, item.count(*iter));
     }
     os << "Total Sale:" << sum << endl;
     return sum;
 }
 
-double
-Limited_quote::net_price(size_t cnt) const
+double Limited_quote::net_price(size_t cnt) const
 {
     if (cnt <= min_qty)
         return cnt * (1 - discount) * price;
@@ -148,8 +138,7 @@ Limited_quote::net_price(size_t cnt) const
 }
 
 // 派生类可以访问基类的public和protected成员
-double
-Bulk_Quote::net_price(size_t cnt) const
+double Bulk_Quote::net_price(size_t cnt) const
 {
     if (cnt >= min_qty)
         return cnt * (1 - discount) * price;
@@ -157,17 +146,14 @@ Bulk_Quote::net_price(size_t cnt) const
         return cnt * price;
 }
 // 基类的行参可以传递派生类的类型
-double
-print_total(ostream &os, const Quote &item, size_t n)
+double print_total(ostream &os, const Quote &item, size_t n)
 {
     double ret = item.net_price(n);
-    os << "ISBN: " << item.isbn() << " # sold: " << n << " total due: " << ret
-       << endl;
+    os << "ISBN: " << item.isbn() << " # sold: " << n << " total due: " << ret << endl;
     return ret;
 }
 
-int
-main(void)
+int main(void)
 {
     /*
         Quote item;

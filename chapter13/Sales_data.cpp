@@ -8,13 +8,9 @@ struct Sales_data
     Sales_data(string s = "") : bookNo(s){};
     //通过添加explicit关键字，可以阻止隐式类型转换；
     // explicit构造函数只能用于直接初始化
-    explicit Sales_data(const string &s, unsigned n, double p) : bookNo(s), units_sold(n), revenue(p * n)
-    {
-    }
+    explicit Sales_data(const string &s, unsigned n, double p) : bookNo(s), units_sold(n), revenue(p * n){};
     explicit Sales_data(istream &);
-    Sales_data() : Sales_data("", 0, 0.0)
-    {
-    }
+    Sales_data() : Sales_data("", 0, 0.0){};
 
     //拷贝构造
     Sales_data(const Sales_data &);

@@ -6,31 +6,6 @@
     "files.associations": {
         "iostream": "cpp",
         "iosfwd": "cpp",
-<<<<<<< HEAD
-        "memory": "cpp",
-        "string": "cpp",
-        "vector": "cpp",
-        "list": "cpp",
-        "new": "cpp",
-        "initializer_list": "cpp",
-        "stdexcept": "cpp",
-        "ostream": "cpp",
-        "array": "cpp",
-        "deque": "cpp",
-        "forward_list": "cpp",
-        "unordered_map": "cpp",
-        "iterator": "cpp",
-        "string_view": "cpp",
-        "functional": "cpp",
-        "istream": "cpp",
-        "numeric": "cpp",
-        "tuple": "cpp",
-        "type_traits": "cpp",
-        "atomic": "cpp",
-        "memory_resource": "cpp",
-        "optional": "cpp"
-    }
-=======
         "*.tcc": "cpp",
         "forward_list": "cpp",
         "string": "cpp",
@@ -40,6 +15,8 @@
         "set": "cpp"
     },
     "editor.lineHeight": 1.3,
-    "editor.formatOnSave": true
->>>>>>> 90cf9e5 (refactor(vscode): 更新 VSCode 设置并删除无用代码)
+    "editor.formatOnSave": true,
+    "Lingma.cloudModelEnable": true,
+    "Lingma.localMachineModel": false,
+    "editor.tabCompletion": "on"
 }
